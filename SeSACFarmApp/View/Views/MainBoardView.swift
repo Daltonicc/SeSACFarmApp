@@ -11,7 +11,13 @@ import SnapKit
 
 class MainBoardView: UIView {
     
-    let tableView = UITableView()
+    let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .singleLine
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +39,7 @@ class MainBoardView: UIView {
     func setUpConstraints() {
         
         tableView.snp.makeConstraints { make in
-            make.width.height.equalToSuperview()
+            make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
 }

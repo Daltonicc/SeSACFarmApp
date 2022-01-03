@@ -21,11 +21,15 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getBoardData {
-            DispatchQueue.main.async {
-                self.mainView.tableView.reloadData()
-            }
-        }
+//        viewModel.getBoardData {
+//            DispatchQueue.main.async {
+//                self.mainView.tableView.reloadData()
+//            }
+//        }
+        
+        
+        
+        
     }
     
     override func viewDidLoad() {
@@ -57,5 +61,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+
+
 
 

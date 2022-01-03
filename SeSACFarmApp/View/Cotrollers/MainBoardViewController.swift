@@ -21,14 +21,11 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        viewModel.getBoardData {
-//            DispatchQueue.main.async {
-//                self.mainView.tableView.reloadData()
-//            }
-//        }
-        
-        
-        
+        viewModel.getBoardData {
+            DispatchQueue.main.async {
+                self.mainView.tableView.reloadData()
+            }
+        }
         
     }
     
@@ -56,7 +53,6 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainBoardTableViewCell.identifier, for: indexPath) as? MainBoardTableViewCell else { return UITableViewCell() }
-        
         
         return cell
     }

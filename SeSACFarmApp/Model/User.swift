@@ -16,7 +16,8 @@ struct UserData: Codable {
 // MARK: - User
 struct User: Codable {
     let id: Int
-    let username, email: String
-
+    let username: String
+    let email: String
+    
 }
 

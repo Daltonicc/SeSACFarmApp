@@ -18,6 +18,7 @@ class MainBoardViewModel {
             guard let boardData = boardData else {
                 return
             }
+            print(boardData)
 
         }
     }

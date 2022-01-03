@@ -55,5 +55,7 @@ class MainViewController: UIViewController {
  이슈
  1. automaticdimension 이슈 -> 해결
     바텀 Constraint를 지정해주지 않아서 메서드가 작동하지 않았음.
- 2.
+ 2. 디코딩 실패 에러(한 4시간 쓴듯) 너무 사소한 실수이지만 반복하지 않기 위해 기록.
+    구조체의 특정 프로퍼티 타입이 json내에서 해당타입과 일치하지 않아서 생긴 에러.
+    구조체 내에서는 username을 Int타입으로 지정했지만 json에서 username은 String타입이었음.
  */

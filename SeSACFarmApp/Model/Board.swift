@@ -7,9 +7,29 @@
 
 import Foundation
 
-struct Board: Codable {
+struct BoardElement: Codable {
+    let id: Int
+    let text: String
+    let user: UserBoard
+    let createdAt, updatedAt: String
+    let comments: [Comment]?
+
+    enum CodingKeys: String, CodingKey {
+        case id, text, user
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case comments
+    }
+}
+
+struct UserBoard: Codable {
     let id: Int
     let username: String
-    let text: String
-    let createdAt, updatedAt: String
 }
+
+struct Comment: Codable {
+    let id: Int
+    let comment: String
+}
+
+

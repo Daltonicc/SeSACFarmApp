@@ -96,13 +96,34 @@ extension URLSession {
                 
                 do {
                     print("do")
-                    print(data)
                     let decoder = JSONDecoder()
                     let userData = try decoder.decode(T.self, from: data)
                     completion(userData, nil)
                 } catch {
                     print("실패")
                     completion(nil, .invalidData)
+                }
+            }
+        }
+    }
+    
+    static func boardRequest(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
+        session.customDataTask(endpoint) { data, response, error in
+            DispatchQueue.main.async {
+                print(response)
+                
+                guard let data = data else {
+                    print("10")
+                    return
+                }
+                
+                do {
+                    print("do")
+                    let decoder = JSONDecoder()
+                    let userData = try! decoder.decode([BoardElement].self, from: data)
+                    completion(userData, nil)
+                } catch {
+                    print("실패")
                 }
             }
         }

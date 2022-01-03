@@ -34,13 +34,14 @@ class APIService {
         URLSession.request(endpoint: request, completion: completion)
     }
     
-    static func getPost(token: String, completion: @escaping (Board?, APIError?) -> Void) {
+    static func getPost(token: String, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
         
-        var request = URLRequest(url: EndPoint.postPost.url)
+        var request = URLRequest(url: EndPoint.getPosts.url)
         request.httpMethod = Method.GET.rawValue
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
         
-        URLSession.request(endpoint: request, completion: completion)
-        
+        URLSession.boardRequest(endpoint: request, completion: completion)
     }
+
 }

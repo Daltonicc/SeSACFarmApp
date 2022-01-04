@@ -68,27 +68,22 @@ extension URLSession {
     static func request<T: Decodable>(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping (T?, APIError?) -> Void) {
         session.customDataTask(endpoint) { data, response, error in
             DispatchQueue.main.async {
-                print(response)
                 guard error == nil else {
-                    print("9")
                     completion(nil, .failed)
                     return
                 }
                 
                 guard let data = data else {
-                    print("10")
                     completion(nil, .noData)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse else {
-                    print("11")
                     completion(nil, .invalidResponse)
                     return
                 }
                 
                 guard response.statusCode == 200 else {
-                    print("12")
                     print(response.statusCode)
                     completion(nil, .failed)
                     return
@@ -110,10 +105,7 @@ extension URLSession {
     static func boardRequest(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
         session.customDataTask(endpoint) { data, response, error in
             DispatchQueue.main.async {
-                print(response)
-                
                 guard let data = data else {
-                    print("10")
                     return
                 }
                 

@@ -38,7 +38,6 @@ class MainBoardTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .systemGray
         label.font = .systemFont(ofSize: 15)
-        label.backgroundColor = .white
         label.text = "date"
         return label
     }()
@@ -54,12 +53,12 @@ class MainBoardTableViewCell: UITableViewCell {
         imageView.tintColor = .lightGray
         return imageView
     }()
-    let commentCountLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .systemGray
-        label.font = .systemFont(ofSize: 15)
-        label.text = "댓글"
-        return label
+    let commentButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("댓글", for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -75,55 +74,58 @@ class MainBoardTableViewCell: UITableViewCell {
     
     func setUpView() {
         
-        addSubview(separateView)
-        addSubview(nicknameLabel)
-        addSubview(contentLabel)
-        addSubview(createDateLabel)
-        addSubview(commentView)
+        contentView.addSubview(separateView)
+        contentView.addSubview(nicknameLabel)
+        contentView.addSubview(contentLabel)
+        contentView.addSubview(createDateLabel)
+        contentView.addSubview(commentView)
+        
+        commentView.addSubview(commentButton)
         commentView.addSubview(commentImageView)
-        commentView.addSubview(commentCountLabel)
     }
     
     func setUpConstraints() {
         
         separateView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
-            make.leading.trailing.equalTo(self)
+            make.top.equalTo(contentView.snp.top)
+            make.leading.trailing.equalTo(contentView)
             make.height.equalTo(5)
         }
         
         nicknameLabel.snp.makeConstraints { make in
             make.top.equalTo(separateView.snp.bottom).offset(10)
-            make.leading.equalTo(self.snp.leading).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(20)
             make.height.equalTo(20)
         }
         contentLabel.snp.makeConstraints { make in
             make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
-            make.leading.equalTo(self.snp.leading).offset(20)
-            make.trailing.equalTo(self.snp.trailing).inset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(20)
+            make.trailing.equalTo(contentView.snp.trailing).inset(20)
         }
         createDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentLabel.snp.bottom).offset(10)
-            make.leading.equalTo(self.snp.leading).offset(20)
+            make.top.equalTo(contentLabel.snp.bottom).offset(30)
+            make.leading.equalTo(contentView.snp.leading).offset(20)
         }
         commentView.snp.makeConstraints { make in
-            make.top.equalTo(createDateLabel.snp.bottom).offset(10)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom)
+            make.top.equalTo(createDateLabel.snp.bottom).offset(20)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)
             make.height.equalTo(44)
         }
         commentImageView.snp.makeConstraints { make in
             make.top.equalTo(commentView.snp.top).inset(10)
-            make.leading.equalTo(self.snp.leading).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(20)
             make.bottom.equalTo(commentView.snp.bottom).inset(10)
         }
-        commentCountLabel.snp.makeConstraints { make in
+        commentButton.snp.makeConstraints { make in
             make.top.equalTo(commentView.snp.top).inset(10)
             make.leading.equalTo(commentImageView.snp.trailing).offset(10)
             make.bottom.equalTo(commentView.snp.bottom).inset(10)
         }
     }
+    
+
 }
 
 

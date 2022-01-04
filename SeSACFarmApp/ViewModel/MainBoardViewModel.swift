@@ -10,6 +10,7 @@ import Foundation
 class MainBoardViewModel {
     
     var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
+    var boardData: [BoardElement] = []
     
     func getBoardData(completion: @escaping () -> Void) {
         
@@ -19,7 +20,14 @@ class MainBoardViewModel {
                 return
             }
             print(boardData)
-
+            
+            self.boardData = boardData
+            completion()
         }
+    }
+    
+    func updateTableView(indexPath: IndexPath) {
+        
+        
     }
 }

@@ -26,7 +26,6 @@ class MainBoardViewController: UIViewController {
                 self.mainView.tableView.reloadData()
             }
         }
-        
     }
     
     override func viewDidLoad() {
@@ -41,20 +40,44 @@ class MainBoardViewController: UIViewController {
         navigationItem.title = "새싹농장"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    @objc func commentButtonClicked() {
+        
+        print("comment Clicked")
+    }
 }
 
 extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return viewModel.boardData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainBoardTableViewCell.identifier, for: indexPath) as? MainBoardTableViewCell else { return UITableViewCell() }
         
+        let row = viewModel.boardData[indexPath.row]
+        
+        cell.nicknameLabel.text = row.user.username
+        cell.contentLabel.text = row.text
+        cell.createDateLabel.text = row.createdAt
+        cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
+
+        
+        if row.comments?.count == 0 {
+            cell.commentButton.setTitle("댓글쓰기", for: .normal)
+        } else {
+            cell.commentButton.setTitle("댓글 \(row.comments!.count)", for: .normal)
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

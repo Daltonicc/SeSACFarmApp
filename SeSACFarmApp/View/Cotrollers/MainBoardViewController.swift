@@ -24,6 +24,7 @@ class MainBoardViewController: UIViewController {
         viewModel.getBoardData {
             DispatchQueue.main.async {
                 self.mainView.tableView.reloadData()
+                self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
             }
         }
     }
@@ -37,8 +38,6 @@ class MainBoardViewController: UIViewController {
         mainView.tableView.dataSource = self
         mainView.tableView.register(MainBoardTableViewCell.self, forCellReuseIdentifier: MainBoardTableViewCell.identifier)
         
-        navigationItem.title = "새싹농장"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc func commentButtonClicked() {

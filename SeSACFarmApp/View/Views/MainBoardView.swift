@@ -11,6 +11,34 @@ import SnapKit
 
 class MainBoardView: UIView {
     
+    let titleView: UIView = {
+        let view = UIView()
+//        view.layer.borderColor = UIColor.lightGray.cgColor
+//        view.layer.borderWidth = 0
+        return view
+    }()
+    let one: UILabel = {
+        let label = UILabel()
+        label.text = "새싹농장"
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textAlignment = .left
+        label.sizeToFit()
+        return label
+    }()
+    let commentImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "bubble.right")
+        imageView.tintColor = .lightGray
+        return imageView
+    }()
+    let two: UILabel = {
+        let label = UILabel()
+        label.text = "댓글"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .left
+        label.sizeToFit()
+        return label
+    }()
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .singleLine
@@ -48,14 +76,27 @@ class MainBoardView: UIView {
     
     func setUpView() {
         
+        addSubview(titleView)
         addSubview(tableView)
         addSubview(writeButton)
+        
+        titleView.addSubview(one)
+        titleView.addSubview(commentImageView)
+        titleView.addSubview(two)
     }
     
     func setUpConstraints() {
         
+        titleView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(-30)
+            make.leading.trailing.equalTo(self)
+            make.height.equalTo(100)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(self.safeAreaLayoutGuide)
+            make.top.equalTo(titleView.snp.bottom).inset(10)
+            make.leading.trailing.equalTo(self)
+            make.bottom.equalTo(self)
         }
         writeButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(20)
@@ -63,5 +104,18 @@ class MainBoardView: UIView {
             make.width.equalTo(60)
             make.height.equalTo(60)
         }
+        one.snp.makeConstraints { make in
+            make.top.equalTo(titleView).inset(10)
+            make.leading.equalTo(self.safeAreaLayoutGuide).inset(20)
+        }
+        commentImageView.snp.makeConstraints { make in
+            make.top.equalTo(one.snp.bottom).offset(10)
+            make.leading.equalTo(self.safeAreaLayoutGuide).inset(20)
+        }
+        two.snp.makeConstraints { make in
+            make.top.equalTo(one.snp.bottom).offset(10)
+            make.leading.equalTo(commentImageView.snp.trailing).offset(5)
+        }
     }
 }
+

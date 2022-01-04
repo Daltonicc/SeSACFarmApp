@@ -11,6 +11,7 @@ class MainBoardViewModel {
     
     var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
     var boardData: [BoardElement] = []
+    var allCommentCount = 0
     
     func getBoardData(completion: @escaping () -> Void) {
         
@@ -22,6 +23,12 @@ class MainBoardViewModel {
             print(boardData)
             
             self.boardData = boardData
+            
+            for i in boardData {
+                self.allCommentCount += i.comments!.count
+            }
+            
+            
             completion()
         }
     }

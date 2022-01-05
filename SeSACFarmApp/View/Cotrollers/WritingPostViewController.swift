@@ -20,6 +20,11 @@ class WritingPostViewController: UIViewController {
         self.view = mainView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        mainView.writeTextView.becomeFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

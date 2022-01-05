@@ -37,5 +37,10 @@ struct CommentForDetailBoard: Codable {
     let id: Int
     let comment: String
     let user: UserBoard
+}
 
+struct PostComment: Codable {
+    let id: Int
+    let comment: String
+    let user: UserBoard
 }

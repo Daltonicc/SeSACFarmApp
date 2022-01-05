@@ -43,8 +43,7 @@ class MainBoardTableViewCell: UITableViewCell {
     }()
     let commentView: UIView = {
         let view = UIView()
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
+        view.addSidedBorder(toEdge: .top, withColor: .lightGray, inset: 0, thickness: 1)
         return view
     }()
     let commentImageView: UIImageView = {

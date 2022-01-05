@@ -36,6 +36,10 @@
 		6ABAEADE2785FD23004BB2C8 /* WritingPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEADD2785FD23004BB2C8 /* WritingPostView.swift */; };
 		6ABAEAE02785FF4D004BB2C8 /* WritingPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEADF2785FF4D004BB2C8 /* WritingPostViewController.swift */; };
 		6ABAEAE427861BFF004BB2C8 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEAE327861BFF004BB2C8 /* Toast.swift */; };
+		6ABAEAE6278634FD004BB2C8 /* CommentModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEAE5278634FD004BB2C8 /* CommentModifyViewController.swift */; };
+		6ABAEAE82786352B004BB2C8 /* CommentModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEAE72786352B004BB2C8 /* CommentModifyView.swift */; };
+		6ABAEAEA2786382E004BB2C8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEAE92786382E004BB2C8 /* UIViewController+Extension.swift */; };
+		6ABAEAEC2786421A004BB2C8 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEAEB2786421A004BB2C8 /* CommentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +73,10 @@
 		6ABAEADD2785FD23004BB2C8 /* WritingPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostView.swift; sourceTree = "<group>"; };
 		6ABAEADF2785FF4D004BB2C8 /* WritingPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostViewController.swift; sourceTree = "<group>"; };
 		6ABAEAE327861BFF004BB2C8 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		6ABAEAE5278634FD004BB2C8 /* CommentModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModifyViewController.swift; sourceTree = "<group>"; };
+		6ABAEAE72786352B004BB2C8 /* CommentModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModifyView.swift; sourceTree = "<group>"; };
+		6ABAEAE92786382E004BB2C8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		6ABAEAEB2786421A004BB2C8 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +126,7 @@
 				6ABAEA882781F831004BB2C8 /* LoginViewModel.swift */,
 				6ABAEA8A2781F83B004BB2C8 /* SignUpViewModel.swift */,
 				6ABAEA9027821A94004BB2C8 /* MainBoardViewModel.swift */,
+				6ABAEAEB2786421A004BB2C8 /* CommentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 				6ABAEA8C2781FB27004BB2C8 /* MainBoardViewController.swift */,
 				6ABAEAD32784C5A3004BB2C8 /* BoardDetatilViewController.swift */,
 				6ABAEADF2785FF4D004BB2C8 /* WritingPostViewController.swift */,
+				6ABAEAE5278634FD004BB2C8 /* CommentModifyViewController.swift */,
 			);
 			path = Cotrollers;
 			sourceTree = "<group>";
@@ -178,6 +188,7 @@
 				6ABAEA9227821B88004BB2C8 /* MainBoardView.swift */,
 				6ABAEAD12784BADE004BB2C8 /* BoardDetailView.swift */,
 				6ABAEADD2785FD23004BB2C8 /* WritingPostView.swift */,
+				6ABAEAE72786352B004BB2C8 /* CommentModifyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				6ABAEADB2785B65E004BB2C8 /* UIView+Extension.swift */,
+				6ABAEAE92786382E004BB2C8 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -275,12 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ABAEAE82786352B004BB2C8 /* CommentModifyView.swift in Sources */,
 				6ABAEAE02785FF4D004BB2C8 /* WritingPostViewController.swift in Sources */,
 				6ABAEA872781F539004BB2C8 /* User.swift in Sources */,
 				6ABAEA8D2781FB27004BB2C8 /* MainBoardViewController.swift in Sources */,
 				6ABAEA9627821EDA004BB2C8 /* MainBoardTableViewCell.swift in Sources */,
 				6ABAEADA2785A8FE004BB2C8 /* BoardDetailTableViewCell.swift in Sources */,
 				6ABAEADC2785B65E004BB2C8 /* UIView+Extension.swift in Sources */,
+				6ABAEAEA2786382E004BB2C8 /* UIViewController+Extension.swift in Sources */,
 				6ABAEADE2785FD23004BB2C8 /* WritingPostView.swift in Sources */,
 				6ABAEA9127821A94004BB2C8 /* MainBoardViewModel.swift in Sources */,
 				6ABAEA832781ECEF004BB2C8 /* Observable.swift in Sources */,
@@ -291,6 +305,7 @@
 				6ABAEAE427861BFF004BB2C8 /* Toast.swift in Sources */,
 				6ABAEA5C27809885004BB2C8 /* MainViewController.swift in Sources */,
 				6ABAEA892781F831004BB2C8 /* LoginViewModel.swift in Sources */,
+				6ABAEAEC2786421A004BB2C8 /* CommentViewModel.swift in Sources */,
 				6ABAEA8B2781F83B004BB2C8 /* SignUpViewModel.swift in Sources */,
 				6ABAEA702780AA22004BB2C8 /* MainView.swift in Sources */,
 				6ABAEA852781ED32004BB2C8 /* EndPoint.swift in Sources */,
@@ -300,6 +315,7 @@
 				6ABAEA7D2781C4D4004BB2C8 /* LoginView.swift in Sources */,
 				6ABAEA7F2781DFF8004BB2C8 /* SignUpView.swift in Sources */,
 				6ABAEAD42784C5A3004BB2C8 /* BoardDetatilViewController.swift in Sources */,
+				6ABAEAE6278634FD004BB2C8 /* CommentModifyViewController.swift in Sources */,
 				6ABAEA5A27809885004BB2C8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

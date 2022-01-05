@@ -95,6 +95,7 @@ class BoardDetailView: UIView {
         textField.placeholder = " 댓글을 입력해주세요"
         textField.textColor = .black
         textField.backgroundColor = .systemGray6
+        textField.layer.cornerRadius = 20
         return textField
     }()
     
@@ -194,7 +195,7 @@ class BoardDetailView: UIView {
         //commentWritingView
         commentWritingView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(self)
-            make.bottom.equalTo(self.snp.bottom).inset(30)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
             make.height.equalTo(50)
         }
         commentTextField.snp.makeConstraints { make in

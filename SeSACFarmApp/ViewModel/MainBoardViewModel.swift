@@ -12,9 +12,7 @@ class MainBoardViewModel {
     var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
     var userID: Int = UserDefaults.standard.integer(forKey: "userID")
     var boardData: [BoardElement] = []
-    var commentData: [CommentForDetailBoard] = []
     
-    var postNumber: Int = 0
     var allCommentCount: Int = 0
     
     func getBoardData(startNumber: Int, completion: @escaping () -> Void) {
@@ -66,16 +64,5 @@ class MainBoardViewModel {
         }
     }
     
-    func getBoardCommentData(postID: Int, completion: @escaping () -> Void) {
-        
-        APIService.getComment(postID: postID, token: token) { commentData, error in
-            
-            guard let commentData = commentData else { return }
-            print(commentData)
-            
-            self.commentData = commentData
-            
-            completion()
-        }
-    }
+
 }

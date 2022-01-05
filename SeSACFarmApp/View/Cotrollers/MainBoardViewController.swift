@@ -43,8 +43,6 @@ class MainBoardViewController: UIViewController {
         
         mainView.writeButton.addTarget(self, action: #selector(createPostButtonClicked), for: .touchUpInside)
         
-
-        
     }
     
     @objc func commentButtonClicked() {

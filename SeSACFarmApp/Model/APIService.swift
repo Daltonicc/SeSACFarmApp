@@ -34,14 +34,46 @@ class APIService {
         URLSession.request(endpoint: request, completion: completion)
     }
     
-    static func getPost(token: String, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
+    static func getPost(token: String, startNumber: Int, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
         
-        var request = URLRequest(url: EndPoint.getPosts.url)
+        var request = URLRequest(url: EndPoint.getPosts(start: startNumber).url)
         request.httpMethod = Method.GET.rawValue
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         print(completion)
         
         URLSession.boardRequest(endpoint: request, completion: completion)
+    }
+    
+    static func postPost(token: String, text: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.postPost.url)
+        request.httpMethod = Method.POST.rawValue
+        request.httpBody = "text=\(text)".data(using: .utf8)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
+        
+        URLSession.request(endpoint: request, completion: completion)
+    }
+    
+    static func changePost(postID: Int, token: String, text: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.changePost(id: postID).url)
+        request.httpMethod = Method.PUT.rawValue
+        request.httpBody = "text=\(text)".data(using: .utf8)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        print(completion)
+        URLSession.request(endpoint: request, completion: completion)
+    }
+    
+    static func deletePost(postID: Int, token: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.deletePost(id: postID).url)
+        request.httpMethod = Method.DELETE.rawValue
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
+        
+        URLSession.request(endpoint: request, completion: completion)
     }
     
     static func getComment(postID: Int, token: String, completion: @escaping ([CommentForDetailBoard]?, APIError?) -> Void) {

@@ -10,27 +10,57 @@ import Foundation
 class MainBoardViewModel {
     
     var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
+    var userID: Int = UserDefaults.standard.integer(forKey: "userID")
     var boardData: [BoardElement] = []
     var commentData: [CommentForDetailBoard] = []
     
     var postNumber: Int = 0
-    var allCommentCount = 0
+    var allCommentCount: Int = 0
     
-    func getBoardData(completion: @escaping () -> Void) {
+    func getBoardData(startNumber: Int, completion: @escaping () -> Void) {
         
-        APIService.getPost(token: token) { boardData, error in
+        APIService.getPost(token: token, startNumber: startNumber) { boardData, error in
             
-            guard let boardData = boardData else {
-                return
-            }
+            guard let boardData = boardData else { return }
             print(boardData)
             
             self.boardData = boardData
+            self.allCommentCount = 0
             
             for i in boardData {
                 self.allCommentCount += i.comments.count
             }
+            completion()
+        }
+    }
+    
+    func postData(text: String, completion: @escaping () -> Void) {
+        
+        APIService.postPost(token: token, text: text) { postData, error in
             
+            guard let postData = postData else { return }
+            
+            completion()
+        }
+    }
+    
+    func changeData(postID: Int, text: String, completion: @escaping () -> Void) {
+        
+        APIService.changePost(postID: postID, token: token, text: text) { boardData, error in
+            
+            guard let boardData = boardData else { return }
+            
+            completion()
+        }
+            
+    }
+    
+    func deleteData(postID: Int, completion: @escaping () -> Void) {
+        
+        APIService.deletePost(postID: postID, token: token) { boardData, error in
+            
+            guard let boardData = boardData else { return }
+            print(boardData)
             
             completion()
         }
@@ -40,16 +70,12 @@ class MainBoardViewModel {
         
         APIService.getComment(postID: postID, token: token) { commentData, error in
             
-            guard let commentData = commentData else {
-                return
-            }
+            guard let commentData = commentData else { return }
             print(commentData)
             
             self.commentData = commentData
             
             completion()
-
-            
         }
     }
 }

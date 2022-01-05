@@ -12,6 +12,8 @@ class MainBoardViewController: UIViewController {
     
     let mainView = MainBoardView()
     let viewModel = MainBoardViewModel()
+    var dataNumber = 0
+
     
     override func loadView() {
         
@@ -21,7 +23,12 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-
+        viewModel.getBoardData(startNumber: 0) {
+            DispatchQueue.main.async {
+                self.mainView.tableView.reloadData()
+                self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -31,20 +38,24 @@ class MainBoardViewController: UIViewController {
         
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
+        mainView.tableView.prefetchDataSource = self
         mainView.tableView.register(MainBoardTableViewCell.self, forCellReuseIdentifier: MainBoardTableViewCell.identifier)
         
-        viewModel.getBoardData {
-            DispatchQueue.main.async {
-                self.mainView.tableView.reloadData()
-                self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
-            }
-        }
+        mainView.writeButton.addTarget(self, action: #selector(createPostButtonClicked), for: .touchUpInside)
+        
+
         
     }
     
     @objc func commentButtonClicked() {
-        
+                
         print("comment Clicked")
+    }
+    
+    @objc func createPostButtonClicked() {
+        
+        let vc = WritingPostViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -85,16 +96,38 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         self.present(nav, animated: true, completion: nil)
         tableView.deselectRow(at: indexPath, animated: true)
         
+        //디테일뷰로 작성자명, 작성자아이디, 내용, 작성일 넘겨줌.
         vc.mainView.writerLabel.text = row.user.username
         vc.mainView.contentTextView.text = row.text
         vc.mainView.createDtLabel.text = row.createdAt
-        
-        guard let selectedPostNumber = row.comments.first?.post else { return }
-        vc.postID = selectedPostNumber
-        
+        vc.postWriterID = row.user.id
+        vc.postID = row.id
     }
 }
 
+extension MainBoardViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+//        for indexPath in indexPaths {
+//            if viewModel.boardData.count - 1 == indexPath.row {
+//                dataNumber += 20
+//                viewModel.getBoardData(startNumber: dataNumber) {
+//                    DispatchQueue.main.async {
+//                        self.mainView.tableView.reloadData()
+//                    }
+//                    
+//                }
+//            }
+//        }
+//    }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        
+    }
+    
+}
 
 
 

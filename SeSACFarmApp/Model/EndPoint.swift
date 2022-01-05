@@ -11,6 +11,8 @@ enum Method: String {
     
     case GET
     case POST
+    case PUT
+    case DELETE
 }
 
 extension URL {
@@ -27,7 +29,7 @@ enum EndPoint {
     case login
     case signUP
     case changePassword
-    case getPosts
+    case getPosts(start: Int)
     case postPost
     case changePost(id: Int)
     case deletePost(id: Int)
@@ -44,7 +46,8 @@ extension EndPoint {
         case .login: return URL.makeEndPoint("/auth/local")
         case .signUP: return .makeEndPoint("/auth/local/register")
         case .changePassword: return .makeEndPoint("/custom/change-password")
-        case .getPosts: return .makeEndPoint("/posts")
+        case .getPosts(start: let start):
+            return .makeEndPoint("/posts?_start=\(start)&_limit=50&_sort=created_at:desc")
         case .postPost: return .makeEndPoint("/posts")
         case .changePost(id: let id): return .makeEndPoint("/posts/\(id)")
         case .deletePost(id: let id): return .makeEndPoint("/posts/\(id)")

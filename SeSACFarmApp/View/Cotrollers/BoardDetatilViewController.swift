@@ -13,7 +13,8 @@ class BoardDetailViewController: UIViewController {
     let mainView = BoardDetailView()
     let viewModel = MainBoardViewModel()
     
-    var postID: Int = 0    
+    var postID: Int = 0
+    var postWriterID: Int = 0
     
     override func loadView() {
         self.view = mainView
@@ -38,6 +39,7 @@ class BoardDetailViewController: UIViewController {
         
         mainView.backgroundColor = .white
         navigationItemConfig()
+        categoryBarButtonMenu()
         
     }
     
@@ -50,9 +52,47 @@ class BoardDetailViewController: UIViewController {
         mainView.backBarButton.action = #selector(backBarButtonClicked)
     }
     
+    func categoryBarButtonMenu() {
+        
+        if viewModel.userID == postWriterID {
+            let modifyAction = UIAction(title: "수정", image: UIImage(systemName: "pencil")) { _ in
+                let vc = WritingPostViewController()
+                vc.mainView.writeTextView.text = self.mainView.contentTextView.text
+                vc.postID = self.postID
+                vc.newOrModify = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            let deleteAction = UIAction(title: "삭제", image: UIImage(systemName: "trash.fill")) { _ in
+                self.viewModel.deleteData(postID: self.postID) {
+                    self.navigationController?.dismiss(animated: true, completion: nil)
+                }
+                
+                
+            }
+            let cancelAction = UIAction(title: "취소", attributes: .destructive) { _ in
+                
+            }
+            
+            mainView.categoryBarButton.menu = UIMenu(
+                title: "수정/삭제",
+                image: nil,
+                identifier: nil,
+                options: .displayInline,
+                children: [modifyAction, deleteAction, cancelAction])
+        } else {
+            mainView.categoryBarButton.target = self
+            mainView.categoryBarButton.action = #selector(categoryButtonClicked)
+        }
+    }
+    
     @objc func backBarButtonClicked() {
         
         navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func categoryButtonClicked() {
+        
+        showToast(vc: self, message: "본인이 작성한 글만\n 수정할 수 있습니다.")
     }
 }
 

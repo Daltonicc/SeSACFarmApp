@@ -21,12 +21,7 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getBoardData {
-            DispatchQueue.main.async {
-                self.mainView.tableView.reloadData()
-                self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
-            }
-        }
+
     }
     
     override func viewDidLoad() {
@@ -37,6 +32,13 @@ class MainBoardViewController: UIViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.register(MainBoardTableViewCell.self, forCellReuseIdentifier: MainBoardTableViewCell.identifier)
+        
+        viewModel.getBoardData {
+            DispatchQueue.main.async {
+                self.mainView.tableView.reloadData()
+                self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
+            }
+        }
         
     }
     
@@ -75,6 +77,11 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = BoardDetailViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true, completion: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

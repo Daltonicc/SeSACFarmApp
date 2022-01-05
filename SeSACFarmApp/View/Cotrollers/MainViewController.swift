@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
  구현해야 할 것
  1. 올바른 이메일 형식 얼럿
  2. 보드 로딩할 때 스켈레톤 뷰
- 3. rx 적용할 수 있는 부분 적용시켜보기
+ 3. rx 적용할 수 있는 부분 적용시켜보기(가입버튼 부분, )
  
  이슈
  1. automaticdimension 이슈 -> 해결

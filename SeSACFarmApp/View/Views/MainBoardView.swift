@@ -13,8 +13,6 @@ class MainBoardView: UIView {
     
     let titleView: UIView = {
         let view = UIView()
-//        view.layer.borderColor = UIColor.lightGray.cgColor
-//        view.layer.borderWidth = 0
         return view
     }()
     let one: UILabel = {

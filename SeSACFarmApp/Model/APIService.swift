@@ -43,5 +43,15 @@ class APIService {
         
         URLSession.boardRequest(endpoint: request, completion: completion)
     }
+    
+    static func getComment(postID: Int, token: String, completion: @escaping ([CommentForDetailBoard]?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.getComment(id: postID).url)
+        request.httpMethod = Method.GET.rawValue
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
+        
+        URLSession.boardRequest(endpoint: request, completion: completion)
+    }
 
 }

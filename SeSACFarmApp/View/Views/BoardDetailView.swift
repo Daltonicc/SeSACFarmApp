@@ -53,12 +53,12 @@ class BoardDetailView: UIView {
         view.addSidedBorder(toEdge: .bottom, withColor: .lightGray, inset: 10, thickness: 1)
         return view
     }()
-    let contentLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.numberOfLines = 0
-        label.text = "contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
-        return label
+    let contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = .systemFont(ofSize: 18)
+        textView.text = "contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
+        textView.isEditable = false
+        return textView
     }()
     let commentCountView: UIView = {
         let view = UIView()
@@ -79,8 +79,10 @@ class BoardDetailView: UIView {
         return label
     }()
     let commentTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .blue
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         return tableView
     }()
     let commentWritingView: UIView = {
@@ -95,26 +97,6 @@ class BoardDetailView: UIView {
         textField.backgroundColor = .systemGray6
         return textField
     }()
-    
-//    let commentWriterLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = .boldSystemFont(ofSize: 15)
-//        label.text = "name"
-//        return label
-//    }()
-//    let commentContentLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = .systemFont(ofSize: 17)
-//        label.numberOfLines = 0
-//        label.text = "contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
-//        return label
-//    }()
-//    let reviseButton: UIButton = {
-//        let button = UIButton()
-//        button.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
-//        button.tintColor = .lightGray
-//        return button
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -140,16 +122,12 @@ class BoardDetailView: UIView {
         writerView.addSubview(writerLabel)
         writerView.addSubview(createDtLabel)
         
-        contentView.addSubview(contentLabel)
+        contentView.addSubview(contentTextView)
         
         commentCountView.addSubview(commentImageView)
         commentCountView.addSubview(commentCountLabel)
         
         commentWritingView.addSubview(commentTextField)
-        
-//        commentView.addSubview(commentWriterLabel)
-//        commentView.addSubview(commentContentLabel)
-//        commentView.addSubview(reviseButton)
     }
     
     func setConstraints() {
@@ -180,12 +158,13 @@ class BoardDetailView: UIView {
         contentView.snp.makeConstraints { make in
             make.top.equalTo(writerView.snp.bottom)
             make.leading.trailing.equalTo(self)
-            make.height.equalTo(120)
+            make.height.equalTo(250)
         }
-        contentLabel.snp.makeConstraints { make in
+        contentTextView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).inset(30)
             make.leading.equalTo(contentView.snp.leading).inset(20)
             make.trailing.equalTo(contentView.snp.trailing).inset(20)
+            make.bottom.equalTo(contentView.snp.bottom).inset(30)
         }
         //commentCountView
         commentCountView.snp.makeConstraints { make in
@@ -209,7 +188,7 @@ class BoardDetailView: UIView {
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(commentCountView.snp.bottom)
             make.leading.trailing.equalTo(self)
-            make.height.equalTo(self).multipliedBy(0.5)
+            make.bottom.equalTo(commentWritingView.snp.top)
 //            make.height.equalTo(200)
         }
         //commentWritingView

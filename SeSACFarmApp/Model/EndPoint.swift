@@ -31,6 +31,7 @@ enum EndPoint {
     case postPost
     case changePost(id: Int)
     case deletePost(id: Int)
+    case getComment(id: Int)
     case postComment
     case changeComment(id: Int)
     case deleteComment(id: Int)
@@ -47,6 +48,7 @@ extension EndPoint {
         case .postPost: return .makeEndPoint("/posts")
         case .changePost(id: let id): return .makeEndPoint("/posts/\(id)")
         case .deletePost(id: let id): return .makeEndPoint("/posts/\(id)")
+        case .getComment(id: let id): return .makeEndPoint("/comments?post=\(id)")
         case .postComment: return .makeEndPoint("/comments")
         case .changeComment(id: let id): return .makeEndPoint("/comments/\(id)")
         case .deleteComment(id: let id): return .makeEndPoint("/comments/\(id)")
@@ -102,7 +104,7 @@ extension URLSession {
         }
     }
     
-    static func boardRequest(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping ([BoardElement]?, APIError?) -> Void) {
+    static func boardRequest<T: Decodable>(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping ([T]?, APIError?) -> Void) {
         session.customDataTask(endpoint) { data, response, error in
             DispatchQueue.main.async {
                 guard let data = data else {
@@ -112,10 +114,11 @@ extension URLSession {
                 do {
                     print("do")
                     let decoder = JSONDecoder()
-                    let userData = try! decoder.decode([BoardElement].self, from: data)
+                    let userData = try! decoder.decode([T].self, from: data)
                     completion(userData, nil)
                 } catch {
                     print("실패")
+                    completion(nil, .invalidData)
                 }
             }
         }

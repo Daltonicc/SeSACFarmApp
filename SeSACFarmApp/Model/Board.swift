@@ -12,7 +12,7 @@ struct BoardElement: Codable {
     let text: String
     let user: UserBoard
     let createdAt, updatedAt: String
-    let comments: [Comment]?
+    let comments: [CommentForMain]
 
     enum CodingKeys: String, CodingKey {
         case id, text, user
@@ -27,9 +27,15 @@ struct UserBoard: Codable {
     let username: String
 }
 
-struct Comment: Codable {
+struct CommentForMain: Codable {
     let id: Int
     let comment: String
+    let post: Int
 }
 
+struct CommentForDetailBoard: Codable {
+    let id: Int
+    let comment: String
+    let user: UserBoard
 
+}

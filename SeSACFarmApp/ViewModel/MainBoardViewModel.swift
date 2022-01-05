@@ -11,6 +11,9 @@ class MainBoardViewModel {
     
     var token: String = UserDefaults.standard.string(forKey: "token") ?? ""
     var boardData: [BoardElement] = []
+    var commentData: [CommentForDetailBoard] = []
+    
+    var postNumber: Int = 0
     var allCommentCount = 0
     
     func getBoardData(completion: @escaping () -> Void) {
@@ -25,7 +28,7 @@ class MainBoardViewModel {
             self.boardData = boardData
             
             for i in boardData {
-                self.allCommentCount += i.comments!.count
+                self.allCommentCount += i.comments.count
             }
             
             
@@ -33,8 +36,20 @@ class MainBoardViewModel {
         }
     }
     
-    func updateTableView(indexPath: IndexPath) {
+    func getBoardCommentData(postID: Int, completion: @escaping () -> Void) {
         
-        
+        APIService.getComment(postID: postID, token: token) { commentData, error in
+            
+            guard let commentData = commentData else {
+                return
+            }
+            print(commentData)
+            
+            self.commentData = commentData
+            
+            completion()
+
+            
+        }
     }
 }

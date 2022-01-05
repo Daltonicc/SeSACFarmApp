@@ -67,23 +67,31 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
         
-        if row.comments?.count == 0 {
+        if row.comments.count == 0 {
             cell.commentButton.setTitle("댓글쓰기", for: .normal)
         } else {
-            cell.commentButton.setTitle("댓글 \(row.comments!.count)", for: .normal)
+            cell.commentButton.setTitle("댓글 \(row.comments.count)", for: .normal)
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+       
+        let row = viewModel.boardData[indexPath.row]
         let vc = BoardDetailViewController()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true, completion: nil)
-        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        vc.mainView.writerLabel.text = row.user.username
+        vc.mainView.contentTextView.text = row.text
+        vc.mainView.createDtLabel.text = row.createdAt
+        
+        guard let selectedPostNumber = row.comments.first?.post else { return }
+        vc.postID = selectedPostNumber
+        
     }
 }
 

@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct BoardElement: Codable {
     let id: Int
     let text: String
@@ -27,6 +28,10 @@ struct UserBoard: Codable {
     let username: String
 }
 
+struct Post: Codable {
+    let id: Int
+}
+
 struct CommentForMain: Codable {
     let id: Int
     let comment: String
@@ -37,6 +42,7 @@ struct CommentForDetailBoard: Codable {
     let id: Int
     let comment: String
     let user: UserBoard
+    let post: Post
 }
 
 struct PostComment: Codable {

@@ -29,15 +29,40 @@ class CommentViewModel {
     
     func postCommentData(postID: Int, text: String, token: String, completion: @escaping () -> Void) {
         
-        APIService.postComment(postID: postID, text: text, token: token) { boardData, error in
+        APIService.postComment(postID: postID, text: text, token: token) { commentData, error in
             
-            guard let boardData = boardData else {
+            guard let commentData = commentData else {
                 return
             }
             
             
             completion()
 
+        }
+    }
+    
+    func changeCommentData(postID: Int, commentID: Int, text: String, completion: @escaping () -> Void) {
+        
+        APIService.changeComment(commentID: commentID, postID: postID, token: token, text: text) { commentData, error in
+            
+            guard let commentData = commentData else {
+                return
+            }
+
+            
+            completion()
+        }
+    }
+    
+    func deleteCommentData(commentID: Int, completion: @escaping () -> Void) {
+        
+        APIService.deleteComment(commentID: commentID, token: token) { commentData, error in
+            
+            guard let commentData = commentData else {
+                return
+            }
+            
+            completion()
         }
     }
     

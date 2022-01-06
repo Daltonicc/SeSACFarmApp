@@ -96,5 +96,26 @@ class APIService {
         
         URLSession.request(endpoint: request, completion: completion)
     }
+    
+    static func changeComment(commentID: Int, postID: Int, token: String, text: String, completion: @escaping (CommentForDetailBoard?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.changeComment(id: commentID).url)
+        request.httpMethod = Method.PUT.rawValue
+        request.httpBody = "comment=\(text)&post=\(postID)".data(using: .utf8)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        print(completion)
+        URLSession.request(endpoint: request, completion: completion)
+    }
+    
+    static func deleteComment(commentID: Int, token: String, completion: @escaping (CommentForDetailBoard?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.deleteComment(id: commentID).url)
+        request.httpMethod = Method.DELETE.rawValue
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
+        
+        URLSession.request(endpoint: request, completion: completion)
+    }
 
 }

@@ -11,12 +11,18 @@ import UIKit
 class CommentModifyViewController: UIViewController {
     
     let mainView = CommentModifyView()
+    let viewModel = CommentViewModel()
     
-    let commentId: Int = 0
-    let commentText = ""
+    var postId: Int = 0
+    var writerId: Int = 0
+    var commentId: Int = 0
     
     override func loadView() {
         self.view = mainView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        mainView.writeTextView.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
@@ -47,6 +53,10 @@ class CommentModifyViewController: UIViewController {
     }
     
     @objc func successButtonClicked() {
+        
+        viewModel.changeCommentData(postID: postId, commentID: commentId, text: mainView.writeTextView.text) {
+            self.navigationController?.popViewController(animated: true)
+        }
         
     }
 

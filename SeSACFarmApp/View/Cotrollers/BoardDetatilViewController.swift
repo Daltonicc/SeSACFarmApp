@@ -117,17 +117,28 @@ class BoardDetailViewController: UIViewController {
         }
     }
     
-    @objc func commentStatusButtonClicked(selectButton: UIButton) {
+    @objc func commentStatusButtonClicked(sender: UIButton) {
         
-        if selectButton.tag == viewModel.userID {
+        let commentData = commentViewModel.commentData[sender.tag]
+        let writerId = commentData.user.id
+        
+        if writerId == viewModel.userID {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             let modifyAction = UIAlertAction(title: "수정", style: .default) { _ in
                 let vc = CommentModifyViewController()
-    //            vc.commentText = mainView.
+                vc.postId = commentData.post.id
+                vc.writerId = writerId
+                vc.commentId = commentData.id
+                vc.mainView.writeTextView.text = commentData.comment
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                
+                print(commentData.id)
+                self.commentViewModel.deleteCommentData(commentID: commentData.id) {
+                    self.commentViewModel.getBoardCommentData(postID: self.postID) {
+                        self.mainView.commentTableView.reloadData()
+                    }
+                }
             }
             deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
 
@@ -167,7 +178,8 @@ extension BoardDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         let row = commentViewModel.commentData[indexPath.row]
         
-        cell.statusButton.tag = row.user.id
+//        cell.statusButton.tag = row.user.id
+        cell.statusButton.tag = indexPath.row
         cell.nameLabel.text = row.user.username
         cell.commentLabel.text = row.comment
         cell.statusButton.addTarget(self, action: #selector(commentStatusButtonClicked), for: .touchUpInside)

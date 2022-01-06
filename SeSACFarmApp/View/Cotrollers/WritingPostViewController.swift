@@ -12,6 +12,7 @@ class WritingPostViewController: UIViewController {
     
     let mainView = WritingPostView()
     let viewModel = MainBoardViewModel()
+    let commentViewModel = CommentViewModel()
     
     var newOrModify = false
     var postID: Int = 0
@@ -60,9 +61,8 @@ class WritingPostViewController: UIViewController {
         } else {
             print(postID)
             viewModel.changeData(postID: postID, text: mainView.writeTextView.text) {
-                let vc = BoardDetailViewController()
-                vc.mainView.contentTextView.text = self.mainView.writeTextView.text
-                self.navigationController?.pushViewController(vc, animated: true)
+                
+                self.navigationController?.popViewController(animated: true)
             }
         }
         newOrModify = false

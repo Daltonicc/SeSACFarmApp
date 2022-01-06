@@ -1,5 +1,5 @@
 //
-//  SignUpViewModel.swift
+//  LoginViewModel.swift
 //  SeSACFarmApp
 //
 //  Created by 박근보 on 2022/01/03.
@@ -7,25 +7,28 @@
 
 import Foundation
 
-class SignUpViewModel {
+class LoginViewModel {
     
-    var username: Observable<String> = Observable("")
     var email: Observable<String> = Observable("")
     var password: Observable<String> = Observable("")
     
-    func postUserSignUp(completion: @escaping () -> Void) {
+    var statusCode: Int = 0
+    
+    func postUserLogin(completion: @escaping () -> Void) {
         
-        APIService.signUp(username: username.value, email: email.value, password: password.value) { userData, error in
-            
+        APIService.login(identifier: email.value, password: password.value) { userData, error in
+
             guard let userData = userData else {
+                print("noUserData")
                 return
             }
             print(userData)
-            
+
             UserDefaults.standard.set(userData.user.id, forKey: "userID")
             UserDefaults.standard.set(userData.jwt, forKey: "token")
-            
+
             completion()
         }
+    
     }
 }

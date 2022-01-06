@@ -46,9 +46,11 @@ class MainBoardViewController: UIViewController {
 
     }
     
+    //댓글 버튼 누르면 바로 댓글 입력으로 연결
     @objc func commentButtonClicked() {
-                
-        print("comment Clicked")
+        
+        
+        
     }
     
     @objc func createPostButtonClicked() {
@@ -73,7 +75,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nicknameLabel.text = row.user.username
         cell.contentLabel.text = row.text
-        cell.createDateLabel.text = row.createdAt
+        cell.createDateLabel.text = row.createdAt.toDate
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
         
@@ -98,7 +100,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         //디테일뷰로 작성자명, 작성자아이디, 내용, 작성일 넘겨줌.
         vc.mainView.writerLabel.text = row.user.username
         vc.mainView.contentTextView.text = row.text
-        vc.mainView.createDtLabel.text = row.createdAt
+        vc.mainView.createDtLabel.text = row.createdAt.toDate
         vc.postWriterID = row.user.id
         vc.postID = row.id
     }

@@ -23,6 +23,7 @@ class LoginView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let passwordTextField: UITextField = {
@@ -31,6 +32,7 @@ class LoginView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let loginButton: UIButton = {
@@ -64,8 +66,9 @@ class LoginView: UIView {
     func setUpConstraints() {
         
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(300)
+//            make.top.equalTo(self.snp.top).offset(300)
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
             make.width.equalTo(self.snp.width).multipliedBy(0.9)
             make.height.equalTo(50)
         }

@@ -96,6 +96,7 @@ class BoardDetailView: UIView {
         textField.textColor = .black
         textField.backgroundColor = .systemGray6
         textField.layer.cornerRadius = 20
+        textField.addLeftPadding()
         return textField
     }()
     

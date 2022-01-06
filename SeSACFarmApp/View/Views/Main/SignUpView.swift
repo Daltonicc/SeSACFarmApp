@@ -23,6 +23,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let nicknameTextField: UITextField = {
@@ -31,6 +32,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let passwordTextField: UITextField = {
@@ -39,6 +41,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let doubleCheckTextField: UITextField = {
@@ -47,6 +50,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.addLeftPadding()
         return textField
     }()
     let signUpButton: UIButton = {

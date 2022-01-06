@@ -63,6 +63,7 @@ class BoardDetailTableViewCell: UITableViewCell {
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
             make.leading.equalTo(contentView.snp.leading).inset(20)
             make.trailing.equalTo(statusButton.snp.leading).inset(10)
+            make.bottom.equalTo(contentView.snp.bottom).inset(10)
         }
         statusButton.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).inset(20)

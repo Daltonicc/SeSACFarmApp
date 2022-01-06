@@ -178,17 +178,12 @@ extension BoardDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         let row = commentViewModel.commentData[indexPath.row]
         
-//        cell.statusButton.tag = row.user.id
         cell.statusButton.tag = indexPath.row
         cell.nameLabel.text = row.user.username
         cell.commentLabel.text = row.comment
         cell.statusButton.addTarget(self, action: #selector(commentStatusButtonClicked), for: .touchUpInside)
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

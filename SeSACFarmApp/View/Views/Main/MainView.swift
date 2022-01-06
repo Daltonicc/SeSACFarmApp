@@ -79,10 +79,11 @@ class MainView: UIView {
     func setUpConstraints() {
         
         mainImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(300)
+//            make.top.equalTo(self.snp.top).offset(300)
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
             make.width.equalTo(self.snp.width).multipliedBy(0.3)
-            make.height.equalTo(150)
+            make.height.equalTo(self.snp.height).multipliedBy(0.2)
         }
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(mainImageView.snp.bottom)
@@ -100,7 +101,7 @@ class MainView: UIView {
         }
         alreadyHaveLabel.snp.makeConstraints { make in
             make.bottom.equalTo(self.snp.bottom).offset(-50)
-            make.centerX.equalToSuperview()
+            make.centerX.equalToSuperview().offset(-30)
         }
         loginButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.snp.bottom).offset(-44)

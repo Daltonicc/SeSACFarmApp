@@ -108,6 +108,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MainBoardViewController: UITableViewDataSourcePrefetching {
     
+    // prefetch 구현했지만 데이터가 이상하게 넘어옴.
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         
 //        for indexPath in indexPaths {

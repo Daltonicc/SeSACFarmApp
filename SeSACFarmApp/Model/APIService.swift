@@ -16,6 +16,7 @@ enum APIError: Error {
 
 class APIService {
     
+    //메서드를 통일 시켜보고 싶었지만 실패. 개선 필요
     static func login(identifier: String, password: String, completion: @escaping (UserData?, APIError?) -> Void) {
         
         var request = URLRequest(url: EndPoint.login.url)

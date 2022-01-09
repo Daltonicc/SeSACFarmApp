@@ -9,44 +9,74 @@ import Foundation
 
 
 struct BoardElement: Codable {
-    let id: Int
-    let text: String
-    let user: UserBoard
+    let postId: Int
+    let postText: String
+    let postUser: UserBoard
     let createdAt, updatedAt: String
     let comments: [CommentForMain]
 
     enum CodingKeys: String, CodingKey {
-        case id, text, user
+        case postId = "id"
+        case postText = "text"
+        case postUser = "user"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case comments
+        case comments = "comments"
     }
 }
 
 struct UserBoard: Codable {
-    let id: Int
-    let username: String
-}
-
-struct Post: Codable {
-    let id: Int
+    let writerId: Int
+    let writerName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case writerId = "id"
+        case writerName = "username"
+    }
 }
 
 struct CommentForMain: Codable {
-    let id: Int
-    let comment: String
-    let post: Int
+    let commentId: Int
+    let commentText: String
+    let postId: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case commentId = "id"
+        case commentText = "comment"
+        case postId = "post"
+    }
 }
 
 struct CommentForDetailBoard: Codable {
-    let id: Int
-    let comment: String
-    let user: UserBoard
+    let commentId: Int
+    let commentText: String
+    let commentUser: UserBoard
     let post: Post
+    
+    enum CodingKeys: String, CodingKey {
+        case commentId = "id"
+        case commentText = "comment"
+        case commentUser = "user"
+        case post = "post"
+    }
+}
+
+struct Post: Codable {
+    let postId: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case postId = "id"
+    }
 }
 
 struct PostComment: Codable {
-    let id: Int
-    let comment: String
-    let user: UserBoard
+    let commentId: Int
+    let commentText: String
+    let commentUser: UserBoard
+    
+    enum CodingKeys: String, CodingKey {
+        case commentId = "id"
+        case commentText = "comment"
+        case commentUser = "user"
+    }
 }

@@ -41,6 +41,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.isSecureTextEntry = true
         textField.addLeftPadding()
         return textField
     }()
@@ -50,6 +51,7 @@ class SignUpView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 5
+        textField.isSecureTextEntry = true
         textField.addLeftPadding()
         return textField
     }()

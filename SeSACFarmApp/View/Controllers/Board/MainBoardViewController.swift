@@ -67,14 +67,16 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         return viewModel.boardData.count
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainBoardTableViewCell.identifier, for: indexPath) as? MainBoardTableViewCell else { return UITableViewCell() }
         
         let row = viewModel.boardData[indexPath.row]
         
-        cell.nicknameLabel.text = row.user.username
-        cell.contentLabel.text = row.text
+        cell.nicknameLabel.text = row.postUser.writerName
+        cell.contentLabel.text = row.postText
         cell.createDateLabel.text = row.createdAt.toDate
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
@@ -98,11 +100,11 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         //디테일뷰로 작성자명, 작성자아이디, 내용, 작성일 넘겨줌.
-        vc.mainView.writerLabel.text = row.user.username
-        vc.mainView.contentTextView.text = row.text
+        vc.mainView.writerLabel.text = row.postUser.writerName
+        vc.mainView.contentTextView.text = row.postText
         vc.mainView.createDtLabel.text = row.createdAt.toDate
-        vc.postWriterID = row.user.id
-        vc.postID = row.id
+        vc.postWriterID = row.postUser.writerId
+        vc.postID = row.postId
     }
 }
 

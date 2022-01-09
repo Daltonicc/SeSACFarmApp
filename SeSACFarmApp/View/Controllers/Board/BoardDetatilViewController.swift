@@ -120,21 +120,21 @@ class BoardDetailViewController: UIViewController {
     @objc func commentStatusButtonClicked(sender: UIButton) {
         
         let commentData = commentViewModel.commentData[sender.tag]
-        let writerId = commentData.user.id
+        let writerId = commentData.commentUser.writerId
         
         if writerId == viewModel.userID {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             let modifyAction = UIAlertAction(title: "수정", style: .default) { _ in
                 let vc = CommentModifyViewController()
-                vc.postId = commentData.post.id
+                vc.postId = commentData.post.postId
                 vc.writerId = writerId
-                vc.commentId = commentData.id
-                vc.mainView.writeTextView.text = commentData.comment
+                vc.commentId = commentData.commentId
+                vc.mainView.writeTextView.text = commentData.commentText
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                print(commentData.id)
-                self.commentViewModel.deleteCommentData(commentID: commentData.id) {
+                print(commentData.commentId)
+                self.commentViewModel.deleteCommentData(commentID: commentData.commentId) {
                     self.commentViewModel.getBoardCommentData(postID: self.postID) {
                         self.mainView.commentTableView.reloadData()
                     }
@@ -179,8 +179,8 @@ extension BoardDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let row = commentViewModel.commentData[indexPath.row]
         
         cell.statusButton.tag = indexPath.row
-        cell.nameLabel.text = row.user.username
-        cell.commentLabel.text = row.comment
+        cell.nameLabel.text = row.commentUser.writerName
+        cell.commentLabel.text = row.commentText
         cell.statusButton.addTarget(self, action: #selector(commentStatusButtonClicked), for: .touchUpInside)
         
         return cell

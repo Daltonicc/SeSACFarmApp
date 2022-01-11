@@ -90,7 +90,11 @@ extension URLSession {
                 
                 guard response.statusCode == 200 else {
                     print(response.statusCode)
-                    completion(nil, .failed)
+                    
+                    switch response.statusCode {
+                    case 400: completion(nil, .identifierOrPasswordFailed)
+                    default: completion(nil, .failed)
+                    }
                     return
                 }
                 
@@ -98,26 +102,6 @@ extension URLSession {
                     print("do")
                     let decoder = JSONDecoder()
                     let userData = try decoder.decode(T.self, from: data)
-                    completion(userData, nil)
-                } catch {
-                    print("실패")
-                    completion(nil, .invalidData)
-                }
-            }
-        }
-    }
-    
-    static func boardRequest<T: Decodable>(_ session: URLSession = .shared, endpoint: URLRequest, completion: @escaping ([T]?, APIError?) -> Void) {
-        session.customDataTask(endpoint) { data, response, error in
-            DispatchQueue.main.async {
-                guard let data = data else {
-                    return
-                }
-                
-                do {
-                    print("do")
-                    let decoder = JSONDecoder()
-                    let userData = try! decoder.decode([T].self, from: data)
                     completion(userData, nil)
                 } catch {
                     print("실패")

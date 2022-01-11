@@ -12,6 +12,7 @@ enum APIError: Error {
     case noData
     case failed
     case invalidData
+    case identifierOrPasswordFailed
 }
 
 class APIService {
@@ -42,7 +43,7 @@ class APIService {
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         print(completion)
         
-        URLSession.boardRequest(endpoint: request, completion: completion)
+        URLSession.request(endpoint: request, completion: completion)
     }
     
     static func postPost(token: String, text: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
@@ -64,6 +65,7 @@ class APIService {
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         print(completion)
+        
         URLSession.request(endpoint: request, completion: completion)
     }
     
@@ -84,7 +86,7 @@ class APIService {
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         print(completion)
         
-        URLSession.boardRequest(endpoint: request, completion: completion)
+        URLSession.request(endpoint: request, completion: completion)
     }
     
     static func postComment(postID: Int, text: String, token: String, completion: @escaping (PostComment?, APIError?) -> Void) {

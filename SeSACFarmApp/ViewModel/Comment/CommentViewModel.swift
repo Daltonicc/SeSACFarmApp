@@ -19,7 +19,6 @@ class CommentViewModel {
         APIService.getComment(postID: postID, token: token) { commentData, error in
             
             guard let commentData = commentData else { return }
-            print(commentData)
             
             self.commentData = commentData
             
@@ -35,9 +34,7 @@ class CommentViewModel {
                 return
             }
             
-            
             completion()
-
         }
     }
     
@@ -49,7 +46,6 @@ class CommentViewModel {
                 return
             }
 
-            
             completion()
         }
     }

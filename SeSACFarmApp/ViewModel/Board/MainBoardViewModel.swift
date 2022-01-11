@@ -20,7 +20,6 @@ class MainBoardViewModel {
         APIService.getPost(token: token, startNumber: startNumber) { boardData, error in
             
             guard let boardData = boardData else { return }
-            print(boardData)
             
             self.boardData = boardData
             self.allCommentCount = 0
@@ -58,7 +57,6 @@ class MainBoardViewModel {
         APIService.deletePost(postID: postID, token: token) { boardData, error in
             
             guard let boardData = boardData else { return }
-            print(boardData)
             
             completion()
         }

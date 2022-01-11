@@ -67,9 +67,29 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonClicked() {
-        print(#function)
-        viewModel.postUserLogin {
+        
+        guard mainView.emailTextField.text != "" else {
+            showToast(vc: self, message: "이메일을 입력해주세요")
+            return
+        }
+        
+        guard mainView.passwordTextField.text != "" else {
+            showToast(vc: self, message: "비밀번호를 입력해주세요")
+            return
+        }
+        
+        viewModel.postUserLogin { error in
             DispatchQueue.main.async {
+                
+                guard error == nil else {
+                    switch error {
+                    case .failed : showToast(vc: self, message: "로그인 실패")
+                    case .identifierOrPasswordFailed:
+                        showToast(vc: self, message: "이메일이나 비밀번호를 확인해주세요", font: .systemFont(ofSize: 15))
+                    default: print("default")
+                    }
+                    return
+                }
                 let vc = MainBoardViewController()
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen

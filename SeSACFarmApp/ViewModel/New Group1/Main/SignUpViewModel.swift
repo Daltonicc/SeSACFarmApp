@@ -20,9 +20,7 @@ class SignUpViewModel {
             guard let userData = userData else {
                 
                 return
-            }
-            print(userData)
-            
+            }            
             UserDefaults.standard.set(userData.user.id, forKey: "userID")
             UserDefaults.standard.set(userData.jwt, forKey: "token")
             

@@ -14,20 +14,22 @@ class LoginViewModel {
     
     var statusCode: Int = 0
     
-    func postUserLogin(completion: @escaping () -> Void) {
+    func postUserLogin(completion: @escaping (APIError?) -> Void) {
         
         APIService.login(identifier: email.value, password: password.value) { userData, error in
 
             guard let userData = userData else {
                 print("noUserData")
+                
+                completion(error)
+                
+                
                 return
             }
-            print(userData)
-
             UserDefaults.standard.set(userData.user.id, forKey: "userID")
             UserDefaults.standard.set(userData.jwt, forKey: "token")
 
-            completion()
+            completion(nil)
         }
     
     }

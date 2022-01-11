@@ -23,7 +23,7 @@ extension Date {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko-KR")
         formatter.timeZone = TimeZone(abbreviation: "KST")
-        formatter.dateFormat = "MM/dd"
+        formatter.dateFormat = "MM/dd HH:mm"
         return formatter.string(from: self)
     }
 }

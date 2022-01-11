@@ -30,12 +30,19 @@ class BoardDetailViewController: UIViewController {
         commentViewModel.getBoardCommentData(postID: postID) {
             DispatchQueue.main.async {
                 self.mainView.commentTableView.reloadData()
+                self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
+                
+                //댓글 없으면 댓글 없다는 레이블
+                if self.commentViewModel.commentData.count == 0 {
+                    self.mainView.noCommentLabel.isHidden = false
+                } else {
+                    self.mainView.noCommentLabel.isHidden = true
+                }
             }
         }
         commentViewModel.getDetailPostData(postID: postID) {
             self.mainView.contentTextView.text = self.commentViewModel.postData?.postText
         }
-        
     }
     
     override func viewDidLoad() {
@@ -111,10 +118,16 @@ class BoardDetailViewController: UIViewController {
     
     @objc func commentTextFieldClicked() {
         
+        guard mainView.commentTextField.text != "" else {
+            showToast(vc: self, message: "댓글을 입력해주세요!")
+            return
+        }
+        
         if let text = mainView.commentTextField.text {
             commentViewModel.postCommentData(postID: postID, text: text, token: viewModel.token) {
                 self.mainView.commentTextField.text = ""
                 self.commentViewModel.getBoardCommentData(postID: self.postID) {
+                    self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
                     self.mainView.commentTableView.reloadData()
                 }
             }
@@ -137,7 +150,9 @@ class BoardDetailViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                print(commentData.commentId)
+
+                
+                
                 self.commentViewModel.deleteCommentData(commentID: commentData.commentId) {
                     self.commentViewModel.getBoardCommentData(postID: self.postID) {
                         self.mainView.commentTableView.reloadData()

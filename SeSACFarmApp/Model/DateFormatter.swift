@@ -13,7 +13,9 @@ extension String {
         formatter.locale = Locale(identifier: "ko-KR")
         formatter.timeZone = TimeZone(abbreviation: "KST")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        let date = formatter.date(from: self) ?? Date()
+        var date = formatter.date(from: self) ?? Date()
+        //시차 맞춰주기(한국 시간으로 맞췄지만 안맞아서 새로 맞춤)
+        date.addTimeInterval(60 * 60 * 9)
         return date.toString
     }
 }

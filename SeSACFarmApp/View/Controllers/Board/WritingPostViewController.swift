@@ -54,6 +54,11 @@ class WritingPostViewController: UIViewController {
     
     @objc func successButtonClicked() {
         
+        guard mainView.writeTextView.text != "" else {
+            showToast(vc: self, message: "글을 입력해주세요!")
+            return
+        }
+        
         // 수정인지 새로운 게시물인지
         if !newOrModify {
             viewModel.postData(text: mainView.writeTextView.text) {

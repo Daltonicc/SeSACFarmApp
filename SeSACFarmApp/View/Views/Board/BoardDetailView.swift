@@ -99,6 +99,14 @@ class BoardDetailView: UIView {
         textField.addLeftPadding()
         return textField
     }()
+    let noCommentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 댓글이 없어요"
+        label.textAlignment = .center
+        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 18)
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,6 +136,8 @@ class BoardDetailView: UIView {
         
         commentCountView.addSubview(commentImageView)
         commentCountView.addSubview(commentCountLabel)
+        
+        commentTableView.addSubview(noCommentLabel)
         
         commentWritingView.addSubview(commentTextField)
     }
@@ -191,7 +201,9 @@ class BoardDetailView: UIView {
             make.top.equalTo(commentCountView.snp.bottom)
             make.leading.trailing.equalTo(self)
             make.bottom.equalTo(commentWritingView.snp.top)
-//            make.height.equalTo(200)
+        }
+        noCommentLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         //commentWritingView
         commentWritingView.snp.makeConstraints { make in

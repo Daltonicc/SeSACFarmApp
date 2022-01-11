@@ -79,6 +79,16 @@ class APIService {
         URLSession.request(endpoint: request, completion: completion)
     }
     
+    static func getDetailPost(postID: Int, token: String, completion: @escaping (Post?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.getDetailPost(id: postID).url)
+        request.httpMethod = Method.GET.rawValue
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(completion)
+        
+        URLSession.request(endpoint: request, completion: completion)
+    }
+    
     static func getComment(postID: Int, token: String, completion: @escaping ([CommentForDetailBoard]?, APIError?) -> Void) {
         
         var request = URLRequest(url: EndPoint.getComment(id: postID).url)

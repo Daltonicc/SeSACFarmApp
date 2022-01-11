@@ -50,7 +50,6 @@ class MainBoardViewController: UIViewController {
     @objc func commentButtonClicked() {
         
         
-        
     }
     
     @objc func createPostButtonClicked() {

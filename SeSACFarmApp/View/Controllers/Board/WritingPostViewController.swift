@@ -54,6 +54,7 @@ class WritingPostViewController: UIViewController {
     
     @objc func successButtonClicked() {
         
+        // 수정인지 새로운 게시물인지
         if !newOrModify {
             viewModel.postData(text: mainView.writeTextView.text) {
                 self.navigationController?.popViewController(animated: true)

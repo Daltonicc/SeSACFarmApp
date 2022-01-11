@@ -26,12 +26,16 @@ class BoardDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         commentViewModel.getBoardCommentData(postID: postID) {
             DispatchQueue.main.async {
                 self.mainView.commentTableView.reloadData()
             }
         }
+        commentViewModel.getDetailPostData(postID: postID) {
+            self.mainView.contentTextView.text = self.commentViewModel.postData?.postText
+        }
+        
     }
     
     override func viewDidLoad() {

@@ -63,9 +63,11 @@ struct CommentForDetailBoard: Codable {
 
 struct Post: Codable {
     let postId: Int
+    let postText: String
     
     enum CodingKeys: String, CodingKey {
         case postId = "id"
+        case postText = "text"
     }
 }
 

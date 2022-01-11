@@ -13,7 +13,20 @@ class CommentViewModel {
     var userID: Int = UserDefaults.standard.integer(forKey: "userID")
     
     var commentData: [CommentForDetailBoard] = []
+    var postData: Post?
 
+    func getDetailPostData(postID: Int, completion: @escaping () -> Void) {
+        
+        APIService.getDetailPost(postID: postID, token: token) { postData, error in
+            
+            guard let postData = postData else { return }
+            
+            self.postData = postData
+            
+            completion()
+        }
+    }
+    
     func getBoardCommentData(postID: Int, completion: @escaping () -> Void) {
         
         APIService.getComment(postID: postID, token: token) { commentData, error in

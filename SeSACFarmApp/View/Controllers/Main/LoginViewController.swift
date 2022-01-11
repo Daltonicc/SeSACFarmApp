@@ -83,7 +83,6 @@ class LoginViewController: UIViewController {
                 
                 guard error == nil else {
                     switch error {
-                    case .failed : showToast(vc: self, message: "로그인 실패")
                     case .identifierOrPasswordFailed:
                         showToast(vc: self, message: "이메일이나 비밀번호를 확인해주세요", font: .systemFont(ofSize: 15))
                     default: print("default")

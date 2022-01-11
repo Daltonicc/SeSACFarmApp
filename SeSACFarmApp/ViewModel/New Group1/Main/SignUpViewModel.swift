@@ -13,18 +13,18 @@ class SignUpViewModel {
     var email: Observable<String> = Observable("")
     var password: Observable<String> = Observable("")
     
-    func postUserSignUp(completion: @escaping () -> Void) {
+    func postUserSignUp(completion: @escaping (APIError?) -> Void) {
         
         APIService.signUp(username: username.value, email: email.value, password: password.value) { userData, error in
             
             guard let userData = userData else {
-                
+                completion(error)
                 return
             }            
             UserDefaults.standard.set(userData.user.id, forKey: "userID")
             UserDefaults.standard.set(userData.jwt, forKey: "token")
             
-            completion()
+            completion(nil)
         }
     }
 }

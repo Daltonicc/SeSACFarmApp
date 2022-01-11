@@ -77,11 +77,44 @@ class SignUpViewController: UIViewController {
     
     @objc func signUpButtonClicked() {
         
-        viewModel.postUserSignUp {
-            let vc = MainBoardViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+        guard mainView.emailTextField.text != "" else {
+            showToast(vc: self, message: "이메일을 입력해주세요")
+            return
+        }
+        
+        guard mainView.nicknameTextField.text != "" else {
+            showToast(vc: self, message: "닉네임을 입력해주세요")
+            return
+        }
+        
+        guard mainView.passwordTextField.text != "" else {
+            showToast(vc: self, message: "비밀번호를 입력해주세요")
+            return
+        }
+        
+        guard mainView.passwordTextField.text == mainView.doubleCheckTextField.text else {
+            showToast(vc: self, message: "비밀번호가 서로 일치하지 않습니다")
+            return
+        }
+    
+        viewModel.postUserSignUp { error in
+            DispatchQueue.main.async {
+                
+                guard error == nil else {
+                    switch error {
+                    case .identifierOrPasswordFailed:
+                        showToast(vc: self, message: "이메일이나 비밀번호를 확인해주세요", font: .systemFont(ofSize: 15))
+                    default: showToast(vc: self, message: "회원가입 실패")
+                    }
+                    return
+                }
+                
+                let vc = MainBoardViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+                
+            }
         }
     }
     

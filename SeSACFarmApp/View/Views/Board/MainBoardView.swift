@@ -37,6 +37,12 @@ class MainBoardView: UIView {
         label.sizeToFit()
         return label
     }()
+    let settingButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .singleLine
@@ -81,6 +87,7 @@ class MainBoardView: UIView {
         titleView.addSubview(one)
         titleView.addSubview(commentImageView)
         titleView.addSubview(two)
+        titleView.addSubview(settingButton)
     }
     
     func setUpConstraints() {
@@ -113,6 +120,11 @@ class MainBoardView: UIView {
         two.snp.makeConstraints { make in
             make.top.equalTo(one.snp.bottom).offset(10)
             make.leading.equalTo(commentImageView.snp.trailing).offset(5)
+        }
+        settingButton.snp.makeConstraints { make in
+            make.top.equalTo(titleView).inset(20)
+            make.trailing.equalTo(titleView.snp.trailing).inset(20)
+            make.height.width.equalTo(30)
         }
     }
 }

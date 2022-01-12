@@ -59,6 +59,8 @@ class MainViewController: UIViewController {
  9. Board 구조체 부분 -> 포스트작성자 id인지, 댓글 작성자id인지, 전부 똑같은 이름이어서 너무 헷갈림; 전부 다르게 구분 지어주기 -> 해결.
  10. Token 갱신
  11. 게시물/댓글 삭제할 때 정말 삭제할건지 얼럿
+ 12. 상속 고려하기(뷰의 재사용)
+ 13. 비밀번호 변경
  
  이슈
  1. automaticdimension 이슈 -> 해결
@@ -80,5 +82,6 @@ class MainViewController: UIViewController {
  6. 새롭게 갱신할때마다 API호출을 계속 하게끔 코드를 짜고 있는데, 호출을 좀 줄이면서 갱신할 수 있는 방법은 없을까.
  7. 한국 시간으로 맞췄지만 시차가 여전히 존재. 개선 필요 11시간 차이 남.
     해결: date에 addTimeInterval 해줌.
+ 8. 마지막 인덱스를 보면 새로운 보드 데이터를 fetch 해주려 했으나 실패. 
  */
 

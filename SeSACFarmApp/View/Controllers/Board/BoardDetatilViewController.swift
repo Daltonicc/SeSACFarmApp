@@ -32,12 +32,13 @@ class BoardDetailViewController: UIViewController {
                 self.mainView.commentTableView.reloadData()
                 self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
                 
-                //댓글 없으면 댓글 없다는 레이블
-                if self.commentViewModel.commentData.count == 0 {
-                    self.mainView.noCommentLabel.isHidden = false
-                } else {
-                    self.mainView.noCommentLabel.isHidden = true
-                }
+                self.noCommentLabelCheck()
+//                //댓글 없으면 댓글 없다는 레이블
+//                if self.commentViewModel.commentData.count == 0 {
+//                    self.mainView.noCommentLabel.isHidden = false
+//                } else {
+//                    self.mainView.noCommentLabel.isHidden = true
+//                }
             }
         }
         commentViewModel.getDetailPostData(postID: postID) {
@@ -82,10 +83,12 @@ class BoardDetailViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             let deleteAction = UIAction(title: "삭제", image: UIImage(systemName: "trash.fill")) { _ in
-                self.viewModel.deleteData(postID: self.postID) {
-                    self.navigationController?.dismiss(animated: true, completion: nil)
+                
+                self.warningAlert { action in
+                    self.viewModel.deleteData(postID: self.postID) {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    }
                 }
-       
             }
             let cancelAction = UIAction(title: "취소", attributes: .destructive) { _ in
                 
@@ -100,6 +103,30 @@ class BoardDetailViewController: UIViewController {
             mainView.categoryBarButton.target = self
             mainView.categoryBarButton.action = #selector(categoryButtonClicked)
         }
+    }
+    
+    func noCommentLabelCheck() {
+        
+        //댓글 없으면 댓글 없다는 레이블
+        if commentViewModel.commentData.count == 0 {
+            mainView.noCommentLabel.isHidden = false
+        } else {
+            mainView.noCommentLabel.isHidden = true
+        }
+    }
+    
+    func warningAlert(handler: @escaping (UIAlertAction) -> Void) {
+        
+        let alert = UIAlertController(title: "정말 삭제하시겠습니까?",message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let ok = UIAlertAction(title: "확인", style: .default, handler: handler)
+        
+        cancel.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -128,6 +155,7 @@ class BoardDetailViewController: UIViewController {
                 self.mainView.commentTextField.text = ""
                 self.commentViewModel.getBoardCommentData(postID: self.postID) {
                     self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
+                    self.noCommentLabelCheck()
                     self.mainView.commentTableView.reloadData()
                 }
             }
@@ -150,12 +178,13 @@ class BoardDetailViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-
-                
-                
-                self.commentViewModel.deleteCommentData(commentID: commentData.commentId) {
-                    self.commentViewModel.getBoardCommentData(postID: self.postID) {
-                        self.mainView.commentTableView.reloadData()
+                self.warningAlert { okAction in
+                    self.commentViewModel.deleteCommentData(commentID: commentData.commentId) {
+                        self.commentViewModel.getBoardCommentData(postID: self.postID) {
+                            self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
+                            self.noCommentLabelCheck()
+                            self.mainView.commentTableView.reloadData()
+                        }
                     }
                 }
             }

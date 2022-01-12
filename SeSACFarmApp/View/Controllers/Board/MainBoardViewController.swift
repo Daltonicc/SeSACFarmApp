@@ -12,8 +12,6 @@ class MainBoardViewController: UIViewController {
     
     let mainView = MainBoardView()
     let viewModel = MainBoardViewModel()
-    var dataNumber = 0
-
     
     override func loadView() {
         
@@ -23,7 +21,7 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getBoardData(startNumber: 0) {
+        viewModel.getBoardData {
             DispatchQueue.main.async {
                 self.mainView.tableView.reloadData()
                 self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
@@ -47,8 +45,9 @@ class MainBoardViewController: UIViewController {
     }
     
     //댓글 버튼 누르면 바로 댓글 입력으로 연결
-    @objc func commentButtonClicked() {
+    @objc func commentButtonClicked(sender: UIButton) {
         
+        let boardData = viewModel.boardData[sender.tag]
         
     }
     
@@ -77,6 +76,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.nicknameLabel.text = row.postUser.writerName
         cell.contentLabel.text = row.postText
         cell.createDateLabel.text = row.createdAt.toDate
+        cell.commentButton.tag = indexPath.row
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
         
@@ -112,18 +112,18 @@ extension MainBoardViewController: UITableViewDataSourcePrefetching {
     // prefetch 구현했지만 데이터가 이상하게 넘어옴.
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         
-//        for indexPath in indexPaths {
-//            if viewModel.boardData.count - 1 == indexPath.row {
-//                dataNumber += 20
-//                viewModel.getBoardData(startNumber: dataNumber) {
-//                    DispatchQueue.main.async {
-//                        self.mainView.tableView.reloadData()
-//                    }
-//                    
-//                }
-//            }
-//        }
-//    }
+        for indexPath in indexPaths {
+            if viewModel.boardData.count - 1 == indexPath.row {
+                viewModel.dataNumber += 50
+                viewModel.getBoardData {
+    
+                    self.mainView.tableView.reloadData()
+
+                }
+                print(#function)
+
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {

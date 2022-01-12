@@ -16,4 +16,14 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always   
     }
+    
+    func textFieldConfig(placeholder: String, passwordOrNot: Bool) {
+        
+        self.placeholder = placeholder
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 5
+        self.isSecureTextEntry = passwordOrNot
+        self.addLeftPadding()
+    }
 }

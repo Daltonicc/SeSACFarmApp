@@ -31,9 +31,7 @@ class MainBoardViewModel {
             completion()
         }
     }
-    
 
-    
     func postData(text: String, completion: @escaping () -> Void) {
         
         APIService.postPost(token: token, text: text) { postData, error in
@@ -62,6 +60,20 @@ class MainBoardViewModel {
             guard let boardData = boardData else { return }
             
             completion()
+        }
+    }
+    
+    func changePassword(currentPassword: String, newPassword: String, confirmPassword: String, completion: @escaping (APIError?) -> Void) {
+        
+        APIService.changePassword(token: token, currentPassword: currentPassword, newPassword: newPassword, confirmPassword: confirmPassword) { userData, error in
+            
+            guard let userData = userData else {
+                
+                completion(error)
+                return
+            }
+
+            completion(nil)
         }
     }
     

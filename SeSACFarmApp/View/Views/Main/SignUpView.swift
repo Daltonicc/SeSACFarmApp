@@ -17,52 +17,11 @@ class SignUpView: UIView {
         barButton.tintColor = .black
         return barButton
     }()
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 이메일 주소"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.addLeftPadding()
-        return textField
-    }()
-    let nicknameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 닉네임"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.addLeftPadding()
-        return textField
-    }()
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 비밀번호"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.isSecureTextEntry = true
-        textField.addLeftPadding()
-        return textField
-    }()
-    let doubleCheckTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 비밀번호 확인"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.isSecureTextEntry = true
-        textField.addLeftPadding()
-        return textField
-    }()
-    let signUpButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("가입하기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 5
-        return button
-    }()
+    let emailTextField = UITextField()
+    let nicknameTextField = UITextField()
+    let passwordTextField = UITextField()
+    let doubleCheckTextField = UITextField()
+    let signUpButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,6 +42,16 @@ class SignUpView: UIView {
         addSubview(passwordTextField)
         addSubview(doubleCheckTextField)
         addSubview(signUpButton)
+        
+        [emailTextField, nicknameTextField, passwordTextField, doubleCheckTextField, signUpButton].forEach {
+            self.addSubview($0)
+        }
+        
+        emailTextField.textFieldConfig(placeholder: "이메일 주소", passwordOrNot: false)
+        nicknameTextField.textFieldConfig(placeholder: "닉네임", passwordOrNot: false)
+        passwordTextField.textFieldConfig(placeholder: "비밀번호", passwordOrNot: false)
+        doubleCheckTextField.textFieldConfig(placeholder: "비밀번호 확인", passwordOrNot: false)
+        signUpButton.buttonConfig(title: "가입하기")
         
     }
     

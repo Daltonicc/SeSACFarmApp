@@ -72,12 +72,10 @@ class LoginViewController: UIViewController {
             showToast(vc: self, message: "이메일을 입력해주세요")
             return
         }
-        
         guard mainView.passwordTextField.text != "" else {
             showToast(vc: self, message: "비밀번호를 입력해주세요")
             return
         }
-        
         viewModel.postUserLogin { error in
             DispatchQueue.main.async {
                 

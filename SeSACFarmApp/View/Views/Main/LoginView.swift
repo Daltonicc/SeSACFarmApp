@@ -17,33 +17,9 @@ class LoginView: UIView {
         barButton.tintColor = .black
         return barButton
     }()
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 이메일 주소"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.addLeftPadding()
-        return textField
-    }()
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = " 비밀번호"
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 5
-        textField.isSecureTextEntry = true
-        textField.addLeftPadding()
-        return textField
-    }()
-    let loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("로그인", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 5
-        return button
-    }()
+    let emailTextField = UITextField()
+    let passwordTextField = UITextField()
+    let loginButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,12 +38,15 @@ class LoginView: UIView {
         addSubview(emailTextField)
         addSubview(passwordTextField)
         addSubview(loginButton)
+        
+        emailTextField.textFieldConfig(placeholder: "이메일 주소", passwordOrNot: false)
+        passwordTextField.textFieldConfig(placeholder: "비밀번호", passwordOrNot: true)
+        loginButton.buttonConfig(title: "로그인")
     }
     
     func setUpConstraints() {
         
         emailTextField.snp.makeConstraints { make in
-//            make.top.equalTo(self.snp.top).offset(300)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-50)
             make.width.equalTo(self.snp.width).multipliedBy(0.9)

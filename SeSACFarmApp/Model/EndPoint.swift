@@ -95,6 +95,7 @@ extension URLSession {
                     
                     switch response.statusCode {
                     case 400: completion(nil, .identifierOrPasswordFailed)
+                    case 401: completion(nil, .invalidToken)
                     default: completion(nil, .failed)
                     }
                     return

@@ -19,6 +19,7 @@ class BoardDetailViewController: UIViewController {
     
     var postID: Int = 0
     var postWriterID: Int = 0
+    var commentFirstRespond = false
     
     override func loadView() {
         self.view = mainView
@@ -26,19 +27,13 @@ class BoardDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         commentViewModel.getBoardCommentData(postID: postID) {
             DispatchQueue.main.async {
                 self.mainView.commentTableView.reloadData()
                 self.mainView.commentCountLabel.text = "댓글 \(self.commentViewModel.commentData.count)개"
                 
                 self.noCommentLabelCheck()
-//                //댓글 없으면 댓글 없다는 레이블
-//                if self.commentViewModel.commentData.count == 0 {
-//                    self.mainView.noCommentLabel.isHidden = false
-//                } else {
-//                    self.mainView.noCommentLabel.isHidden = true
-//                }
             }
         }
         commentViewModel.getDetailPostData(postID: postID) {
@@ -61,6 +56,11 @@ class BoardDetailViewController: UIViewController {
         
         navigationItemConfig()
         categoryBarButtonMenu()
+        
+        //추후에 수정필요. 이렇게하면 키보드노티가 기능을 안함.
+//        if commentFirstRespond {
+//            mainView.commentTextField.becomeFirstResponder()
+//        }
     }
     
     func navigationItemConfig() {

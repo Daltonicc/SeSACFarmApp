@@ -40,6 +40,7 @@ class MainBoardViewController: UIViewController {
         mainView.tableView.register(MainBoardTableViewCell.self, forCellReuseIdentifier: MainBoardTableViewCell.identifier)
         
         mainView.writeButton.addTarget(self, action: #selector(createPostButtonClicked), for: .touchUpInside)
+        mainView.settingButton.addTarget(self, action: #selector(settingButtonClicked), for: .touchUpInside)
         
 
     }
@@ -48,13 +49,41 @@ class MainBoardViewController: UIViewController {
     @objc func commentButtonClicked(sender: UIButton) {
         
         let boardData = viewModel.boardData[sender.tag]
+        let vc = BoardDetailViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true, completion: nil)
         
+        vc.mainView.writerLabel.text = boardData.postUser.writerName
+        vc.mainView.contentTextView.text = boardData.postText
+        vc.mainView.createDtLabel.text = boardData.createdAt.toDate
+        vc.postWriterID = boardData.postUser.writerId
+        vc.postID = boardData.postId
+        vc.commentFirstRespond = true
     }
     
     @objc func createPostButtonClicked() {
         
         let vc = WritingPostViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func settingButtonClicked() {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let passwordChange = UIAlertAction(title: "비밀번호 변경", style: .default) { UIAlertAction in
+            let vc = ChangePasswordViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        cancel.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        alert.addAction(passwordChange)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -104,6 +133,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         vc.mainView.createDtLabel.text = row.createdAt.toDate
         vc.postWriterID = row.postUser.writerId
         vc.postID = row.postId
+        vc.commentFirstRespond = false
     }
 }
 
@@ -112,18 +142,18 @@ extension MainBoardViewController: UITableViewDataSourcePrefetching {
     // prefetch 구현했지만 데이터가 이상하게 넘어옴.
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         
-        for indexPath in indexPaths {
-            if viewModel.boardData.count - 1 == indexPath.row {
-                viewModel.dataNumber += 50
-                viewModel.getBoardData {
-    
-                    self.mainView.tableView.reloadData()
-
-                }
-                print(#function)
-
-            }
-        }
+//        for indexPath in indexPaths {
+//            if viewModel.boardData.count - 1 == indexPath.row {
+//                viewModel.dataNumber += 50
+//                viewModel.getBoardData {
+//
+//                    self.mainView.tableView.reloadData()
+//
+//                }
+//                print(#function)
+//
+//            }
+//        }
     }
     
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {

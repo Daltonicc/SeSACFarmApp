@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A66D9ED278F0EB60051EC51 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66D9EC278F0EB60051EC51 /* UIButton+Extension.swift */; };
+		6A66D9EF278F14350051EC51 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66D9EE278F14350051EC51 /* ChangePasswordView.swift */; };
+		6A66D9F1278F15ED0051EC51 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66D9F0278F15ED0051EC51 /* ChangePasswordViewController.swift */; };
 		6ABAEA5827809885004BB2C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEA5727809885004BB2C8 /* AppDelegate.swift */; };
 		6ABAEA5A27809885004BB2C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEA5927809885004BB2C8 /* SceneDelegate.swift */; };
 		6ABAEA5C27809885004BB2C8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABAEA5B27809885004BB2C8 /* MainViewController.swift */; };
@@ -44,6 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A66D9EC278F0EB60051EC51 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		6A66D9EE278F14350051EC51 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		6A66D9F0278F15ED0051EC51 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		6ABAEA5427809885004BB2C8 /* SeSACFarmApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACFarmApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ABAEA5727809885004BB2C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ABAEA5927809885004BB2C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +207,7 @@
 			children = (
 				6ABAEADB2785B65E004BB2C8 /* UIView+Extension.swift */,
 				6ABAEAE92786382E004BB2C8 /* UITextField+Extension.swift */,
+				6A66D9EC278F0EB60051EC51 /* UIButton+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +218,7 @@
 				6ABAEA5B27809885004BB2C8 /* MainViewController.swift */,
 				6ABAEA782781BAE4004BB2C8 /* SignUpViewController.swift */,
 				6ABAEA7A2781BC36004BB2C8 /* LoginViewController.swift */,
+				6A66D9F0278F15ED0051EC51 /* ChangePasswordViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				6ABAEA6F2780AA22004BB2C8 /* MainView.swift */,
 				6ABAEA7C2781C4D4004BB2C8 /* LoginView.swift */,
 				6ABAEA7E2781DFF8004BB2C8 /* SignUpView.swift */,
+				6A66D9EE278F14350051EC51 /* ChangePasswordView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -364,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ABAEAE82786352B004BB2C8 /* CommentModifyView.swift in Sources */,
+				6A66D9EF278F14350051EC51 /* ChangePasswordView.swift in Sources */,
 				6ABAEAE02785FF4D004BB2C8 /* WritingPostViewController.swift in Sources */,
 				6ABAEA872781F539004BB2C8 /* User.swift in Sources */,
 				6ABAEA8D2781FB27004BB2C8 /* MainBoardViewController.swift in Sources */,
@@ -384,12 +394,14 @@
 				6ABAEAEC2786421A004BB2C8 /* CommentViewModel.swift in Sources */,
 				6ABAEA8B2781F83B004BB2C8 /* SignUpViewModel.swift in Sources */,
 				6ABAEA702780AA22004BB2C8 /* MainView.swift in Sources */,
+				6A66D9ED278F0EB60051EC51 /* UIButton+Extension.swift in Sources */,
 				6ABAEAF92786F436004BB2C8 /* DateFormatter.swift in Sources */,
 				6ABAEA852781ED32004BB2C8 /* EndPoint.swift in Sources */,
 				6ABAEAD22784BADE004BB2C8 /* BoardDetailView.swift in Sources */,
 				6ABAEA5827809885004BB2C8 /* AppDelegate.swift in Sources */,
 				6ABAEA812781ECE2004BB2C8 /* APIService.swift in Sources */,
 				6ABAEA7D2781C4D4004BB2C8 /* LoginView.swift in Sources */,
+				6A66D9F1278F15ED0051EC51 /* ChangePasswordViewController.swift in Sources */,
 				6ABAEA7F2781DFF8004BB2C8 /* SignUpView.swift in Sources */,
 				6ABAEAD42784C5A3004BB2C8 /* BoardDetatilViewController.swift in Sources */,
 				6ABAEAE6278634FD004BB2C8 /* CommentModifyViewController.swift in Sources */,

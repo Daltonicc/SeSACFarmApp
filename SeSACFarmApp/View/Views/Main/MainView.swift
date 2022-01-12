@@ -31,14 +31,7 @@ class MainView: UIView {
         label.textAlignment = .center
         return label
     }()
-    let startButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("시작하기", for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 5
-        return button
-    }()
+    let startButton = UIButton()
     let alreadyHaveLabel: UILabel = {
         let label = UILabel()
         label.text = "이미 계정이 있나요?"
@@ -67,19 +60,17 @@ class MainView: UIView {
     }
     
     func setUpView() {
+
+        [mainImageView, titleLabel, subTitleLabel, startButton, alreadyHaveLabel, loginButton].forEach {
+            self.addSubview($0)
+        }
         
-        addSubview(mainImageView)
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
-        addSubview(startButton)
-        addSubview(alreadyHaveLabel)
-        addSubview(loginButton)
+        startButton.buttonConfig(title: "시작하기")
     }
     
     func setUpConstraints() {
         
         mainImageView.snp.makeConstraints { make in
-//            make.top.equalTo(self.snp.top).offset(300)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-50)
             make.width.equalTo(self.snp.width).multipliedBy(0.3)

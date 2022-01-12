@@ -13,6 +13,7 @@ enum APIError: Error {
     case failed
     case invalidData
     case identifierOrPasswordFailed
+    case invalidToken
 }
 
 class APIService {
@@ -32,6 +33,16 @@ class APIService {
         var request = URLRequest(url: EndPoint.signUP.url)
         request.httpMethod = Method.POST.rawValue
         request.httpBody = "username=\(username)&email=\(email)&password=\(password)".data(using: .utf8, allowLossyConversion: false)
+        
+        URLSession.request(endpoint: request, completion: completion)
+    }
+    
+    static func changePassword(token: String, currentPassword: String, newPassword: String, confirmPassword: String, completion: @escaping (User?, APIError?) -> Void) {
+        
+        var request = URLRequest(url: EndPoint.changePassword.url)
+        request.httpMethod = Method.POST.rawValue
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = "currentPassword=\(currentPassword)&newPassword=\(newPassword)&confirmNewPassword=\(confirmPassword)".data(using: .utf8, allowLossyConversion: false)
         
         URLSession.request(endpoint: request, completion: completion)
     }

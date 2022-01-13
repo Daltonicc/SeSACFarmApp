@@ -53,6 +53,22 @@ class MainBoardViewController: UIViewController {
 
     }
     
+    func changeDateFormatting(date: String) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        var newDate = dateFormatter.date(from: date) ?? Date()
+        //시차 맞춰주기(한국 시간으로 맞췄지만 안맞아서 새로 맞춤)
+        newDate.addTimeInterval(60 * 60 * 9)
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.locale = Locale(identifier: "ko-KR")
+        dateFormatter2.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter2.dateFormat = "MM/dd HH:mm"
+        
+        return dateFormatter2.string(from: newDate)
+    }
+    
     //댓글 버튼 누르면 바로 댓글 입력으로 연결
     @objc func commentButtonClicked(sender: UIButton) {
         
@@ -64,7 +80,7 @@ class MainBoardViewController: UIViewController {
         
         vc.mainView.writerLabel.text = boardData.postUser.writerName
         vc.mainView.contentTextView.text = boardData.postText
-        vc.mainView.createDtLabel.text = boardData.createdAt.toDate
+        vc.mainView.createDtLabel.text = changeDateFormatting(date: boardData.createdAt)
         vc.postWriterID = boardData.postUser.writerId
         vc.postID = boardData.postId
         vc.commentFirstRespond = true
@@ -106,7 +122,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nicknameLabel.text = row.postUser.writerName
         cell.contentLabel.text = row.postText
-        cell.createDateLabel.text = row.createdAt.toDate
+        cell.createDateLabel.text = changeDateFormatting(date: row.createdAt)
         cell.commentButton.tag = indexPath.row
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
@@ -130,7 +146,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         //디테일뷰로 작성자명, 작성자아이디, 내용, 작성일 넘겨줌.
         vc.mainView.writerLabel.text = row.postUser.writerName
         vc.mainView.contentTextView.text = row.postText
-        vc.mainView.createDtLabel.text = row.createdAt.toDate
+        vc.mainView.createDtLabel.text = changeDateFormatting(date: row.createdAt)
         vc.postWriterID = row.postUser.writerId
         vc.postID = row.postId
         vc.commentFirstRespond = false

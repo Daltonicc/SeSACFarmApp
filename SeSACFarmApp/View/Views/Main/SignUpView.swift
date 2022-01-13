@@ -49,8 +49,8 @@ class SignUpView: UIView {
         
         emailTextField.textFieldConfig(placeholder: "이메일 주소", passwordOrNot: false)
         nicknameTextField.textFieldConfig(placeholder: "닉네임", passwordOrNot: false)
-        passwordTextField.textFieldConfig(placeholder: "비밀번호", passwordOrNot: false)
-        doubleCheckTextField.textFieldConfig(placeholder: "비밀번호 확인", passwordOrNot: false)
+        passwordTextField.textFieldConfig(placeholder: "비밀번호", passwordOrNot: true)
+        doubleCheckTextField.textFieldConfig(placeholder: "비밀번호 확인", passwordOrNot: true)
         signUpButton.buttonConfig(title: "가입하기")
         
     }

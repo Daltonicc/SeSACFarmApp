@@ -1,8 +1,8 @@
 # SeSACFarmApp
 
-## [iPhone 8]()
+## [iPhone 8](https://youtu.be/SLTc4Il9fKg)
 
-## [iPhone 13 Pro Max]()
+## [iPhone 13 Pro Max](https://youtu.be/TI5Q_ZEGaX4)
 
 ## 이슈 정리
 

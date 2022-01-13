@@ -36,7 +36,15 @@ class BoardDetailViewController: UIViewController {
                 self.noCommentLabelCheck()
             }
         }
-        commentViewModel.getDetailPostData(postID: postID) {
+        commentViewModel.getDetailPostData(postID: postID) { error in
+            
+            guard error == nil else {
+                switch error {
+                case .invalidToken: self.invalidTokenAlert()
+                default: showToast(vc: self, message: "다시 로그인해주세요")
+                }
+                return
+            }
             self.mainView.contentTextView.text = self.commentViewModel.postData?.postText
         }
     }
@@ -114,21 +122,7 @@ class BoardDetailViewController: UIViewController {
             mainView.noCommentLabel.isHidden = true
         }
     }
-    
-    func warningAlert(handler: @escaping (UIAlertAction) -> Void) {
-        
-        let alert = UIAlertController(title: "정말 삭제하시겠습니까?",message: nil, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let ok = UIAlertAction(title: "확인", style: .default, handler: handler)
-        
-        cancel.setValue(UIColor.red, forKey: "titleTextColor")
-        
-        alert.addAction(cancel)
-        alert.addAction(ok)
 
-        present(alert, animated: true, completion: nil)
-    }
-    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {

@@ -104,12 +104,7 @@ class SignUpViewController: UIViewController {
                     }
                     return
                 }
-                
-                let vc = MainBoardViewController()
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-                
+                self.customPresentViewController(presentVC: MainBoardViewController(), completion: nil)
             }
         }
     }

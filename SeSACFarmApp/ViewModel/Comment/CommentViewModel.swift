@@ -15,15 +15,19 @@ class CommentViewModel {
     var commentData: [CommentForDetailBoard] = []
     var postData: Post?
 
-    func getDetailPostData(postID: Int, completion: @escaping () -> Void) {
+    func getDetailPostData(postID: Int, completion: @escaping (APIError?) -> Void) {
         
         APIService.getDetailPost(postID: postID, token: token) { postData, error in
             
-            guard let postData = postData else { return }
+            guard let postData = postData else {
+                
+                completion(error)
+                return
+            }
             
             self.postData = postData
             
-            completion()
+            completion(nil)
         }
     }
     

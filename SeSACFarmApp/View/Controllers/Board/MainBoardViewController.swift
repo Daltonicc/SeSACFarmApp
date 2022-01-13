@@ -21,8 +21,16 @@ class MainBoardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getBoardData {
+        viewModel.getBoardData { error in
             DispatchQueue.main.async {
+                
+                guard error == nil else {
+                    switch error {
+                    case .invalidToken: self.invalidTokenAlert()
+                    default: showToast(vc: self, message: "다시 로그인해주세요")
+                    }
+                    return
+                }
                 self.mainView.tableView.reloadData()
                 self.mainView.two.text = "댓글 \(self.viewModel.allCommentCount)"
             }
@@ -64,18 +72,14 @@ class MainBoardViewController: UIViewController {
     
     @objc func createPostButtonClicked() {
         
-        let vc = WritingPostViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        customPushViewController(pushVC: WritingPostViewController())
     }
     
     @objc func settingButtonClicked() {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let passwordChange = UIAlertAction(title: "비밀번호 변경", style: .default) { UIAlertAction in
-            let vc = ChangePasswordViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+            self.customPresentViewController(presentVC: ChangePasswordViewController(), completion: nil)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         cancel.setValue(UIColor.red, forKey: "titleTextColor")
@@ -93,9 +97,7 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         
         return viewModel.boardData.count
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainBoardTableViewCell.identifier, for: indexPath) as? MainBoardTableViewCell else { return UITableViewCell() }
@@ -108,13 +110,11 @@ extension MainBoardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.commentButton.tag = indexPath.row
         cell.commentButton.addTarget(self, action: #selector(commentButtonClicked), for: .touchUpInside)
 
-        
         if row.comments.count == 0 {
             cell.commentButton.setTitle("댓글쓰기", for: .normal)
         } else {
             cell.commentButton.setTitle("댓글 \(row.comments.count)", for: .normal)
         }
-        
         return cell
     }
     

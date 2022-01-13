@@ -23,7 +23,6 @@ class LoginViewModel {
                 
                 completion(error)
                 
-                
                 return
             }
             UserDefaults.standard.set(userData.user.id, forKey: "userID")

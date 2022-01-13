@@ -65,9 +65,7 @@ class WritingPostViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         } else {
-            print(postID)
             viewModel.changeData(postID: postID, text: mainView.writeTextView.text) {
-                
                 self.navigationController?.popViewController(animated: true)
             }
         }

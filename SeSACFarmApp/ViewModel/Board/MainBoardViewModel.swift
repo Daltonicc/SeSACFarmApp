@@ -16,11 +16,14 @@ class MainBoardViewModel {
     var allCommentCount: Int = 0
     var dataNumber: Int = 0
     
-    func getBoardData(completion: @escaping () -> Void) {
+    func getBoardData(completion: @escaping (APIError?) -> Void) {
         
         APIService.getPost(token: token, startNumber: dataNumber) { boardData, error in
             
-            guard let boardData = boardData else { return }
+            guard let boardData = boardData else {
+                completion(error)
+                return
+            }
             
             self.boardData = boardData
             self.allCommentCount = 0
@@ -28,7 +31,7 @@ class MainBoardViewModel {
             for i in boardData {
                 self.allCommentCount += i.comments.count
             }
-            completion()
+            completion(nil)
         }
     }
 
